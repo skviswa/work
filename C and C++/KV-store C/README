@@ -1,0 +1,40 @@
+Program Execution Steps
+
+1) run make all in the homework directory
+2) Start router with port number 
+      E.g ./router 5555
+3) Start servers with its port numbers
+      E.g. ./server 5789
+           ./server 8977
+           ./server 3000
+           
+4) start client providing routers ip:port number as argument
+      E.g. ./client 127.0.0.1:5555
+      
+5) client will be able to create and access key value pairs from servers based on its key values
+
+
+
+
+Protocol 
+
+Protocol is documented in src/protobuf/prototocl.proto
+
+
+Third-Party libraries
+
+1. Hashing Key and consistent hashing
+      utHash and libhashring
+      
+2. Serializing/Deserializing
+     protobuf-c
+   
+3.  Socket Communication
+     protobuf-c-rpc
+
+
+
+Enhancements
+
+1) Replication Mechanism
+2) Fault tolerance

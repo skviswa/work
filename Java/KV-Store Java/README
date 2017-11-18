@@ -1,0 +1,113 @@
+######################################################################################################
+				DISTRIBUTED KEY VALUE STORE
+######################################################################################################
+
+-------------------------------------------------------
+TEAM MEMBERS:
+-------------------------------------------------------
+JAYESH SARODE
+KARTHIK VISWANATHAN 
+PREETHI AYYAMPERUMAL
+
+-------------------------------------------------------
+STEPS TO BUILD/RUN THE SYSTEM:
+-------------------------------------------------------
+1) Build Command "make build" 
+2) All Tests Command "make tests"
+3) Basic Chord Network Test "make chordNetworkBasic"
+4) Nodes Joining Test "make chordNetworkNodeAddition"
+5) Nodes Leaving Test "make chordNetworkNodeFailure" 
+
+-------------------------------------------------------------------------------------------------------
+TEST SCRIPTS
+-------------------------------------------------------------------------------------------------------
+
+Test Scripts creates /starts multiple server programs
+and multiple client programs that issues get/set requests.
+
+
+------------------------------------------------------------------------------------------------------
+THIRD PARTY LIBRARIES
+------------------------------------------------------------------------------------------------------
+1.Consistent hashing and Peer-to-Peer Server Communication
+    Open-Chord Library
+      
+2.Serializing/Deserializing Messages
+    Protobuf
+   
+3.Network Communication
+    Sockets
+
+
+
+######################################################################################################
+					DESIGN OF THE SYSTEM
+######################################################################################################
+
+-----------------------------------------------------------
+SYSTEM COMPONENTS:
+-----------------------------------------------------------
+
+Proxy/Coordinator
+Servers
+Clients
+Chord Network-Consistent Hashing
+Server/Cient Socket Communication
+
+-------------------------------------------------------------------------------------------------------
+				CHORD NETWORK- CONSISTENT HASING
+-------------------------------------------------------------------------------------------------------
+
+
+As Peer-to-Peer (P2P) computing becomes more important for distributed applications, which have to
+be reliable, load balanced and scalable, the underlying technologies must also provide these properties.
+This is also important for data storage in P2P networks. In recent years new data structures – so-
+called distributed hash tables (DHT) – have been shown to provide a reliable, load balanced and
+scalable mechanism to store data in a P2P network.DHT differ from P2P networks developed before in their 
+structural organization.While DHTs are based on structured networks, where for example the nodes in the 
+network are organized in a ring, former P2P networks had no structure, which ordered the nodes of the 
+networks in a particular way. Therefore these networks could not provide guarantees for data stored in the
+network to be found. The structure of DHTs allows to exactly locate desired data with help of a
+unique key associated to this data similar to conventional hash tables.
+
+In a DHT every peer of the underlying P2P network takes responsibility for certain data values, that
+it must store and provide to the other participants of the P2P network. The structure of the P2P
+network (e.g. ordering of nodes on a ring) is exploited to quickly find and store desired data.
+
+This DHT uses consistent hashing. 
+
+------------------------------------------------------------------------------------------------------------
+						CHORD FEATURES
+------------------------------------------------------------------------------------------------------------							
+1. Consistent Hashisng for building Distributed Hash Table
+2. Finger Tables for maintaining current range of keys by nodes
+3. Stabilization by a daemon to handle unreachable nodes
+4. Effecient Load balancing for handling new node entry
+5. Fault tolerance by replication
+
+
+------------------------------------------------------------------------------------------------------------- 
+						PROXY/COORDINATOR
+-------------------------------------------------------------------------------------------------------------
+A proxy/coordinator process keeps track of available servers and data stored in those servers. A client 
+connects to the proxy/coordinator process to learn the address of a server that it should connect for
+performing set/get operations. The proxy server also acts as a load-balancer and ensures a uniform workload
+distribution among various servers.
+
+
+----------------------------------------------------------------------------------------------------------------
+						SERVER
+-----------------------------------------------------------------------------------------------------------------
+A server program that accepts get/set requests from the clients and returns a valid response. The server will
+ communicate with it's peer processes (spread across the network) to maintain a consistent view of the key-value 
+database.
+
+------------------------------------------------------------------------------------------------------------------
+						CLIENT
+------------------------------------------------------------------------------------------------------------------
+A client that communicates with a server to perform get/set operations. The client should learn the server address 
+via a coordinator/proxy process
+
+
+
+

@@ -1,0 +1,29 @@
+A FEW POINTS TO NOTE:
+This program implements the dining philosophers problem, for arbitrary number of philosophers.
+Note that the program doesn't run forever, I've put a check on the number of cycles its going to
+be operating on. But to check for the other condition of running forever, we just have to 
+comment out the for loop on line 85 and uncomment the while loop on the line above. 
+
+The inputs for the program are the number of philosophers n and the number of cycles N.
+The default values for N and n are 5 and 5 respectively.
+
+I've used the rand function to randomly generate a value of count in the range of 1 - N 
+for each thread, so that there is some simulation along the lines of threads waiting for more time.
+
+The output prints based on which thread is right now active, either thinking or eating.
+
+HOW TO COMPILE THE PROGRAM:
+To generate the executable, give make or make all
+it will generate an executable of name diningphilosopher
+Run diningphilosopher and provide inputs 
+
+BRIEF SUMMARY OF THE LOGIC:
+The program is implemented by using semaphores. Since each fork is placed between 2 philosophers,
+it is a shared resource between 2 threads. Thus I have initialized a binary semaphore for each fork.
+The logic that I've implemented is that number of locks that can be acquired is one less than the
+total number of philosophers, to prevent deadlock. 
+
+The interesting notion of starvation is not handled in this scenario. I would have probably looked at
+having a queue of threads, and servicing threads which have been in the queue the longest time,
+which would have enabled some fairness.
+

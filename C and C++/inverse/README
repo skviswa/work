@@ -1,0 +1,20 @@
+A FEW POINTS TO NOTE:
+There are two versions, serial and parallel, and timing of both is included as 
+a part of the prints.
+
+Since this is for a 1000X1000 matrix inversion, I have not provided any inputs for
+changing size. But if it needs to be done, there is a 
+#define SIZE macro that can be changed to reflect the size. The default is 1000.
+
+I have included a printMatrix function to print any matrix.
+I have also included a sanity check function check to compare results of serial and 
+parallel execution.
+
+HOW TO COMPILE THE PROGRAM:
+To generate the executable, give make all or make build.
+To run the executable, give make run
+
+BRIEF SUMMARY OF THE LOGIC:
+The logic used is fairly straightforward. LU decomposition with parital pivoting
+to factorize the given matrix, then use forward and backward substitution to
+produce the inverted matrix. 

@@ -1,0 +1,26 @@
+A FEW POINTS TO NOTE:
+This program implements the dining philosophers problem, for arbitrary number of philosophers.
+Note that the program doesn't run forever, I've put a check on the number of cycles its going to
+be operating on. But to check for the other condition of running forever, we just have to 
+comment out the for loop on line 85 and uncomment the while loop on the line above. 
+
+The inputs for the program are the number of philosophers n and the number of cycles N.
+The default values for N and n are 5 and 5 respectively.
+
+The output prints based on which thread is right now active, either thinking or eating.
+
+HOW TO COMPILE THE PROGRAM:
+To generate the executable, give make or make all
+it will generate an executable of name diningomp
+Run diningomp and provide inputs 
+
+BRIEF SUMMARY OF THE LOGIC:
+This is the OpenMP implementation of Dining Philosophers. In my previous implementation using
+pthreads, I had used semaphores to solve the problem. In that scenario, I initialized the 
+locks in such a way that only N-1 philosophers would be able to reach for the fork, so that
+one was able to acquire both. I used the post and wait functions to synchronise who picks up next.
+
+In the case of OpenMP, I was not able to do it at such a fine grained level. I had to explicitly
+specify an order of picking up forks (for example, left fork first then right fork) and then ensure
+that one philosopher did not follow the herd and picked up the forks in the opposite order.
+

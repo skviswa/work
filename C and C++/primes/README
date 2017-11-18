@@ -1,0 +1,34 @@
+A FEW POINTS TO NOTE:
+This program computes the Primes from 1-N, where N is the max range.
+The input to this program consists of N and n, which are the maximum
+range to check for primes and the number of threads respectively.
+
+The default values for N and n are 100 and 2 respectively.
+
+I've experimented quite a bit with the combinations of both.
+
+There are some combinations where I'm not able to increase the number of
+threads beyond a threshold, as I run out of memory.
+I've not yet completely solved that issue so if an error pops up saying unable
+to allocate enough memory for thread, try providing for a lower value!
+
+I've also disabled printing of the results because it floods the screen.
+But it can always be enabled by uncommenting lines 233 and 236 respecitvely.
+
+HOW TO COMPILE THE PROGRAM:
+To generate the executable, give make or make all
+it will generate an executable of name primes
+Run primes and provide inputs 
+
+BRIEF SUMMARY OF THE LOGIC:
+The program tries to split the work among threads by splitting the
+given range 1-N in to blocks of data and allocating them to the given
+threads. To enable each thread to run independently on its block of data,
+Thread i works on the numbers in the range [i*N/n]-[((i+1)*N/n) - 1] 
+
+I first precompute the primes in the range 3-sqrt(N) and use that as a lookup
+table for each thread, so that each thread can work on its data without having
+any dependency from another thread for which multiples it should work on.
+
+Each thread computes the number of primes present in its data block, and 
+the global count gets updated when each thread finishes its task.

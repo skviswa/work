@@ -1,0 +1,77 @@
+Multi-Threaded malloc Library Implementation
+
+
+Overview:
+
+User memory requests are handled and address is returned to user for their programming purpose and
+once they are done with it, they can return the memory to this library which manages without returning to kernel
+and uses it for later time. This supports multi-threaded applications
+
+Design:
+
+Bin Management:
+
+Four bins are maintained for handling the memory freed by the users. Each bin is a linkedlist of "free_list structure"
+
+struct free_list
+{
+	struct block_header * blockaddress;
+	size_t chunk_size;
+	struct free_list * next_chunk;
+	struct free_list * prev_chunk;
+};
+
+The block_header pointer is a structure which looks like follows
+
+struct block_header
+{
+	size_t chunk_size;
+	struct block_header * next_block;
+	size_t magicnumber;
+};
+
+The block header structure content is placed just before the allocated chunk. When user calls free,
+the block header is determined by subtracting 24 bytes from the pointer passed to it.
+Then the structure is dereferenced. The "chunk_size" determines amount of memory to be stored  
+in the corresponding free list bins. 
+
+Magic Number:
+
+Magic number helps in handling invalid pointer which are not allocated by malloc library
+and helps in overcoming invalid accesses
+
+
+Alignment:
+
+The address returned to the user is aligned to 8 byte boundary to let users perform operations 
+without issues
+
+Kernel Interaction:
+
+sbrk() is used for memory request less than 512 bytes
+mmap() is used for memory request greater than 512 bytes
+
+Multi-Threading Support:
+
+I have implemented naive synchronization using one global mutex, 
+but i have ensured correctness by running the benchmark program
+
+Malloc Status:
+
+Prints the statistics of malloc usage
+
+Realloc Support:
+
+The realloc() function changes the size of the memory block pointed to by ptr to size bytes. 
+The contents will be unchanged in the range from the start of the region up to the minimum 
+of the old and new sizes. If the new size is larger than the old size, the added memory will not be initialized. 
+If ptr is NULL, then the call is equivalent to malloc(size), for all values of size; 
+if size is equal to zero, and ptr is not NULL, then the call is equivalent to free(ptr). 
+Unless ptr is NULL, it must have been returned by an earlier call to malloc(), calloc() or realloc(). 
+If the area pointed to was moved, a free(ptr) is done.
+
+calloc support:
+
+The calloc() function allocates memory for an array of nmemb elements of size bytes each and 
+returns a pointer to the allocated memory. The memory is set to zero. If nmemb or size is 0, then calloc()
+ returns either NULL, or a unique pointer value that can later be successfully passed to free().

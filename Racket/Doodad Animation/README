@@ -1,0 +1,9 @@
+This program creates an animation that enables you to play with creating and
+destroying 2 objects, named doodads, in Racket.
+We can create and destroy objects and watch them bounce off the walls.
+We can drag and drop the objects when we pause the animation as well as when animation is live.
+
+Pressing space pauses the animation. Pressing t creates a new star doodad, 
+while pressing q creates a new square doodad.
+
+Pressing c changes color of the doodads, while pressing . deletes the most recently created doodads.
